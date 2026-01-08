@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R. Suriyanarayanan | AI Developer Portfolio</title>
+    <meta name="description" content="AI & ML Developer specializing in Python, NLP, and intelligent systems. Building data-driven applications with machine learning.">
+    <meta name="author" content="R. Suriyanarayanan">
+    <meta name="keywords" content="AI Developer, Machine Learning, Python, NLP, Data Science, Suriyanarayanan">
+    
+    <meta property="og:title" content="R. Suriyanarayanan | AI Developer">
+    <meta property="og:description" content="Building intelligent, data-driven applications using ML & NLP">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://suriyablue.github.io">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Inter:wght@300;400;700&display=swap');
+        
+        :root {
+            --bg: #f4ead5;
+            --text: #2c2c2c;
+            --border: rgba(90, 77, 68, 0.2);
+            --accent: #7a6a5e;
+            --card: #ebe0c9;
+        }
+
+        .dark-theme {
+            --bg: #0a0a0a;
+            --text: #d4c9b0;
+            --border: rgba(212, 201, 176, 0.1);
+            --accent: #8b7e66;
+            --card: #121212;
+        }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) transparent;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Crimson Pro', serif;
+            transition: background-color 0.8s ease, color 0.8s ease;
+            overflow-x: hidden;
+        }
+
+        .grain {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.03;
+            background-image: url('https://www.transparenttextures.com/patterns/p6-dark.png');
+            z-index: 60;
+        }
+
+        .vintage-border {
+            position: fixed;
+            inset: 1rem;
+            border: 1px solid var(--border);
+            pointer-events: none;
+            z-index: 40;
+        }
+
+        .nav-glass {
+            background: var(--card);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border);
+        }
+
+        .project-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease;
+        }
+
+        .project-card.active .project-content {
+            max-height: 500px;
+            padding-bottom: 2.5rem;
+        }
+
+        .project-card.active .chevron {
+            transform: rotate(90deg);
+        }
+
+        .neural-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.03;
+        }
+
+        .neural-node {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--text);
+            border-radius: 50%;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.5); }
+        }
+
+        .neural-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--text), transparent);
+            opacity: 0.05;
+            animation: flow 4s infinite;
+        }
+
+        @keyframes flow {
+            0% { opacity: 0.02; }
+            50% { opacity: 0.08; }
+            100% { opacity: 0.02; }
+        }
+
+        .ai-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .glow-accent {
+            box-shadow: 0 0 30px rgba(139, 126, 102, 0.2);
+        }
+
+        .artifact-photo {
+            filter: grayscale(0.8) contrast(1.1) brightness(0.95);
+            transition: filter 0.5s ease;
+        }
+
+        .artifact-photo:hover {
+            filter: grayscale(0.3) contrast(1.05) brightness(1);
+        }
+
+        .contact-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        section {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section:nth-child(1) { animation-delay: 0.1s; }
+        section:nth-child(2) { animation-delay: 0.2s; }
+        section:nth-child(3) { animation-delay: 0.3s; }
+        section:nth-child(4) { animation-delay: 0.4s; }
+        section:nth-child(5) { animation-delay: 0.5s; }
+        section:nth-child(6) { animation-delay: 0.6s; }
+
+        /* Certificate hover effect */
+        .cert-link {
+            transition: all 0.3s ease;
+        }
+
+        .cert-link:hover {
+            transform: translateX(4px);
+        }
+
+        /* Modal animation */
+        #resume-modal {
+            transition: opacity 0.3s ease;
+        }
+
+        #resume-modal.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #resume-modal:not(.hidden) {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="dark-theme">
+    <div class="grain"></div>
+    <div class="vintage-border"></div>
+    <div class="neural-bg" id="neural-bg"></div>
+
+    <!-- Navigation -->
+    <header class="fixed top-0 left-0 w-full z-50 p-6">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="#home" class="flex items-center gap-4 group">
+                <div class="w-10 h-10 border border-current flex items-center justify-center rotate-45 glow-accent group-hover:scale-110 transition-transform">
+                    <i data-lucide="brain" class="-rotate-45 w-5 h-5"></i>
+                </div>
+                <span class="text-[10px] uppercase tracking-[0.5em] opacity-40 hidden md:block italic">AI Developer</span>
+            </a>
+
+            <nav class="nav-glass px-4 md:px-6 py-2 rounded-full flex gap-4 md:gap-8 items-center shadow-2xl">
+                <a href="#home" class="text-[9px] uppercase tracking-[0.2em] opacity-40 hover:opacity-100 transition-opacity">Home</a>
+                <a href="#about" class="text-[9px] uppercase tracking-[0.2em] opacity-40 hover:opacity-100 transition-opacity hidden sm:block">About</a>
+                <a href="#projects" class="text-[9px] uppercase tracking-[0.2em] opacity-40 hover:opacity-100 transition-opacity">Projects</a>
+                <a href="#experience" class="text-[9px] uppercase tracking-[0.2em] opacity-40 hover:opacity-100 transition-opacity hidden sm:block">Experience</a>
+                <a href="#contact" class="text-[9px] uppercase tracking-[0.2em] opacity-40 hover:opacity-100 transition-opacity">Contact</a>
+                <button onclick="toggleTheme()" class="opacity-40 hover:opacity-100 transition-opacity" id="theme-btn" aria-label="Toggle theme">
+                    <i data-lucide="sun" class="w-4 h-4"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 pt-48 pb-24 relative z-10">
+        
+        <!-- HERO SECTION -->
+        <section id="home" class="mb-48">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-8">
+                    <div class="flex items-center gap-3 mb-6 opacity-60">
+                        <i data-lucide="sparkles" class="w-4 h-4 ai-float"></i>
+                        <span class="text-[10px] uppercase tracking-[0.4em]">AI & ML Developer • Python Specialist</span>
+                    </div>
+                    
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight tracking-tight">
+                        R. Suriyanarayanan
+                    </h1>
+                    
+                    <p class="text-lg md:text-xl italic opacity-70 mb-8 max-w-xl leading-relaxed">
+                        Crafting intelligent systems that learn, adapt, and solve real-world problems through machine learning and natural language processing.
+                    </p>
+                    
+                    <!-- Main Action Buttons -->
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#projects" class="px-8 py-3 border border-current hover:bg-[var(--text)] hover:text-[var(--bg)] transition-all duration-500 flex items-center gap-2">
+                            <i data-lucide="folder-open" class="w-4 h-4"></i> View Projects
+                        </a>
+                        <a href="mailto:suryanarayanan8036@gmail.com" class="px-8 py-3 bg-[#8b7e66] text-white flex items-center gap-2 hover:brightness-110 transition-all">
+                            <i data-lucide="mail" class="w-4 h-4"></i> <span>Get In Touch</span>
+                        </a>
+                    </div>
+
+                    <!-- Resume Buttons -->
+                    <div class="flex flex-wrap gap-4 mt-6">
+                        <button onclick="openResumeModal()" class="px-6 py-2 border border-current/30 hover:border-current flex items-center gap-2 text-sm transition-all">
+                            <i data-lucide="eye" class="w-4 h-4"></i> View Resume
+                        </button>
+                        <a href="assets/docs/resume.pdf" download="Suriyanarayanan_Resume.pdf" class="px-6 py-2 border border-current/30 hover:border-current flex items-center gap-2 text-sm transition-all">
+                            <i data-lucide="download" class="w-4 h-4"></i> Download Resume
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-4 flex justify-center">
+                    <div class="relative ai-float">
+                        <svg class="absolute -top-8 -left-8 w-24 h-24 opacity-10" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                            <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                            <circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                            <line x1="50" y1="10" x2="50" y2="90" stroke="currentColor" stroke-width="0.5"/>
+                            <line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" stroke-width="0.5"/>
+                        </svg>
+                        
+                        <div class="bg-neutral-900 p-2 shadow-2xl rotate-1 glow-accent">
+                            <div class="w-48 h-60 overflow-hidden relative bg-neutral-800">
+                                <img 
+                                    src="assets/images/profile.jpg" 
+                                    alt="R. Suriyanarayanan - AI Developer" 
+                                    class="w-full h-full object-cover artifact-photo"
+                                    loading="lazy"
+                                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                                >
+                                <div class="absolute inset-0 items-center justify-center hidden bg-neutral-800">
+                                    <i data-lucide="user" class="w-16 h-16 opacity-20"></i>
+                                </div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none"></div>
+                            </div>
+                            <div class="flex items-center justify-center gap-2 mt-3">
+                                <i data-lucide="cpu" class="w-3 h-3 opacity-40"></i>
+                                <p class="text-[8px] uppercase tracking-[0.4em] opacity-40">AI Developer</p>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute -bottom-4 -right-4 w-3 h-3 bg-[#8b7e66] rounded-full animate-pulse"></div>
+                        <div class="absolute -top-2 -right-6 w-2 h-2 bg-[#8b7e66] rounded-full animate-pulse" style="animation-delay: 0.5s;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="mb-48">
+            <div class="flex items-center gap-6 mb-16">
+                <span class="text-xs opacity-30 tracking-widest">[01]</span>
+                <h2 class="text-3xl md:text-5xl font-bold uppercase tracking-widest italic">About Me</h2>
+                <div class="h-[1px] flex-1 bg-current opacity-10"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+                <div>
+                    <p class="text-xl md:text-3xl leading-relaxed italic opacity-80 mb-8">
+                        A Computer Science graduate with a deep passion for Artificial Intelligence and Machine Learning.
+                    </p>
+                    <div class="flex items-center gap-4 opacity-60">
+                        <i data-lucide="map-pin" class="w-4 h-4"></i>
+                        <span class="text-sm">Thanjavur, Tamil Nadu, India</span>
+                    </div>
+                </div>
+                <div class="space-y-6 opacity-70 text-lg">
+                    <p>I specialize in building intelligent applications that leverage machine learning models, natural language processing, and modern Python frameworks.</p>
+                    <p>My focus is on creating practical AI solutions — from chatbots that understand context to systems that extract insights from data.</p>
+                    <p>Currently exploring advanced ML techniques and working on deploying scalable AI-powered applications.</p>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 pt-16 border-t border-current/10">
+                <a href="https://leetcode.com/u/suryanarayanan8036/" target="_blank" rel="noopener noreferrer" class="text-center group hover:opacity-80 transition-opacity">
+                    <div class="flex items-center justify-center gap-2 mb-2">
+                        <i data-lucide="code-2" class="w-5 h-5 opacity-40 group-hover:opacity-70"></i>
+                    </div>
+                    <p class="text-3xl font-bold">100+</p>
+                    <p class="text-[10px] uppercase tracking-widest opacity-40 mt-1">LeetCode Problems ↗</p>
+                </a>
+                <div class="text-center">
+                    <div class="flex items-center justify-center gap-2 mb-2">
+                        <i data-lucide="folder-git-2" class="w-5 h-5 opacity-40"></i>
+                    </div>
+                    <p class="text-3xl font-bold">10+</p>
+                    <p class="text-[10px] uppercase tracking-widest opacity-40 mt-1">Projects Built</p>
+                </div>
+                <div class="text-center">
+                    <div class="flex items-center justify-center gap-2 mb-2">
+                        <i data-lucide="award" class="w-5 h-5 opacity-40"></i>
+                    </div>
+                    <p class="text-3xl font-bold">1</p>
+                    <p class="text-[10px] uppercase tracking-widest opacity-40 mt-1">Patent Published</p>
+                </div>
+                <div class="text-center">
+                    <div class="flex items-center justify-center gap-2 mb-2">
+                        <i data-lucide="trophy" class="w-5 h-5 opacity-40"></i>
+                    </div>
+                    <p class="text-3xl font-bold">2nd</p>
+                    <p class="text-[10px] uppercase tracking-widest opacity-40 mt-1">Hackathon Place</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS SECTION -->
+        <section id="skills" class="mb-48">
+            <div class="flex items-center gap-6 mb-16">
+                <span class="text-xs opacity-30 tracking-widest">[02]</span>
+                <h2 class="text-3xl md:text-5xl font-bold uppercase tracking-widest italic">Tech Stack</h2>
+                <div class="h-[1px] flex-1 bg-current opacity-10"></div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3 opacity-50">
+                        <i data-lucide="brain" class="w-5 h-5"></i>
+                        <span class="text-[10px] uppercase tracking-[0.3em] font-bold">AI & ML</span>
+                    </div>
+                    <ul class="space-y-3 opacity-70 text-lg">
+                        <li class="flex items-center gap-2"><i data-lucide="sparkle" class="w-3 h-3 opacity-40"></i> Machine Learning</li>
+                        <li class="flex items-center gap-2"><i data-lucide="sparkle" class="w-3 h-3 opacity-40"></i> NLP</li>
+                        <li class="flex items-center gap-2"><i data-lucide="sparkle" class="w-3 h-3 opacity-40"></i> Model Evaluation</li>
+                        <li class="flex items-center gap-2"><i data-lucide="sparkle" class="w-3 h-3 opacity-40"></i> Scikit-Learn</li>
+                    </ul>
+                </div>
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3 opacity-50">
+                        <i data-lucide="code-2" class="w-5 h-5"></i>
+                        <span class="text-[10px] uppercase tracking-[0.3em] font-bold">Development</span>
+                    </div>
+                    <ul class="space-y-3 opacity-70 text-lg">
+                        <li class="flex items-center gap-2"><i data-lucide="sparkle" class="w-3 h-3 opacity-40"></i> Python</li>
+                        <li class="flex items-center gap-2"><i data-lucide="sparkle" class="w-3 h-3 opacity-40"></i> FastAPI</li>
+                        <li class="flex items-center gap-2"><i data-lucide="sparkle" class="w-3 h-3 opacity-40"></i> Flask</li>
+                        <li class="flex items-center gap-2"><i data-lucide="sparkle" class="w-3 h-3 opacity-40"></i> Streamlit</li>
+                    </ul>
+                </div>
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3 opacity-50">
+                        <i data-lucide="database" class="w-5 h-5"></i>
+                        <span class="text-[10px] uppercase tracking-[0.3em] font-bold">Data & Cloud</span>
+                    </div>
+                    <ul class="space-y-3 opacity-70 text-lg">
+                        <li class="flex items-center gap-2"><i data-lucide="sparkle" class="w-3 h-3 opacity-40"></i> MongoDB</li>
+                        <li class="flex items-center gap-2"><i data-lucide="sparkle" class="w-3 h-3 opacity-40"></i> MySQL</li>
+                        <li class="flex items-center gap-2"><i data-lucide="sparkle" class="w-3 h-3 opacity-40"></i> AWS S3/EC2</li>
+                        <li class="flex items-center gap-2"><i data-lucide="sparkle" class="w-3 h-3 opacity-40"></i> Pandas</li>
+                    </ul>
+                </div>
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3 opacity-50">
+                        <i data-lucide="wrench" class="w-5 h-5"></i>
+                        <span class="text-[10px] uppercase tracking-[0.3em] font-bold">Tools</span>
+                    </div>
+                    <ul class="space-y-3 opacity-70 text-lg">
+                        <li class="flex items-center gap-2"><i data-lucide="sparkle" class="w-3 h-3 opacity-40"></i> Git & GitHub</li>
+                        <li class="flex items-center gap-2"><i data-lucide="sparkle" class="w-3 h-3 opacity-40"></i> Docker</li>
+                        <li class="flex items-center gap-2"><i data-lucide="sparkle" class="w-3 h-3 opacity-40"></i> Jupyter</li>
+                        <li class="flex items-center gap-2"><i data-lucide="sparkle" class="w-3 h-3 opacity-40"></i> Google Colab</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="mb-48">
+            <div class="flex items-center gap-6 mb-16">
+                <span class="text-xs opacity-30 tracking-widest">[03]</span>
+                <h2 class="text-3xl md:text-5xl font-bold uppercase tracking-widest italic">Projects</h2>
+                <div class="h-[1px] flex-1 bg-current opacity-10"></div>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Project 1 -->
+                <div class="project-card border border-current/10 transition-all duration-500 cursor-pointer overflow-hidden hover:border-current/50" onclick="toggleProject(this)">
+                    <div class="p-8 flex items-center justify-between">
+                        <div class="flex items-center gap-6">
+                            <i data-lucide="bot" class="opacity-40 w-6 h-6"></i>
+                            <div>
+                                <h3 class="text-2xl font-bold italic">Intelligent Chatbot</h3>
+                                <p class="text-[10px] uppercase tracking-widest opacity-40 mt-1">AI • NLP • API Integration</p>
+                            </div>
+                        </div>
+                        <i data-lucide="chevron-right" class="chevron transition-transform duration-300"></i>
+                    </div>
+                    <div class="project-content px-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-current/10 pt-8">
+                            <div>
+                                <p class="text-lg italic opacity-80 mb-6">Built an intelligent chatbot that understands natural language queries and fetches real-time data from multiple APIs.</p>
+                                <ul class="space-y-2 text-sm opacity-60">
+                                    <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 opacity-60"></i> Integrated Gemini API for intelligent responses</li>
+                                    <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 opacity-60"></i> Connected Weather & Stock APIs for real-time data</li>
+                                    <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 opacity-60"></i> Deployed using FastAPI backend</li>
+                                </ul>
+                            </div>
+                            <div class="flex flex-col justify-between items-end">
+                                <div class="flex flex-wrap gap-2 justify-end">
+                                    <span class="text-[9px] uppercase border border-current/30 px-3 py-1">Python</span>
+                                    <span class="text-[9px] uppercase border border-current/30 px-3 py-1">FastAPI</span>
+                                    <span class="text-[9px] uppercase border border-current/30 px-3 py-1">Gemini API</span>
+                                </div>
+                                <a href="https://github.com/Suriyablue" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-xs border-b border-current pb-1 mt-6 hover:opacity-60 transition-opacity" onclick="event.stopPropagation();">
+                                    <i data-lucide="github" class="w-4 h-4"></i> View on GitHub
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card border border-current/10 transition-all duration-500 cursor-pointer overflow-hidden hover:border-current/50" onclick="toggleProject(this)">
+                    <div class="p-8 flex items-center justify-between">
+                        <div class="flex items-center gap-6">
+                            <i data-lucide="file-text" class="opacity-40 w-6 h-6"></i>
+                            <div>
+                                <h3 class="text-2xl font-bold italic">Blogging Platform</h3>
+                                <p class="text-[10px] uppercase tracking-widest opacity-40 mt-1">Full-Stack • Flask • MongoDB</p>
+                            </div>
+                        </div>
+                        <i data-lucide="chevron-right" class="chevron transition-transform duration-300"></i>
+                    </div>
+                    <div class="project-content px-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-current/10 pt-8">
+                            <div>
+                                <p class="text-lg italic opacity-80 mb-6">Developed a complete blogging platform with user authentication, real-time updates, and content management.</p>
+                                <ul class="space-y-2 text-sm opacity-60">
+                                    <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 opacity-60"></i> RESTful API design with Flask</li>
+                                    <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 opacity-60"></i> MongoDB for flexible data storage</li>
+                                    <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 opacity-60"></i> Streamlit frontend for easy interaction</li>
+                                </ul>
+                            </div>
+                            <div class="flex flex-col justify-between items-end">
+                                <div class="flex flex-wrap gap-2 justify-end">
+                                    <span class="text-[9px] uppercase border border-current/30 px-3 py-1">Flask</span>
+                                    <span class="text-[9px] uppercase border border-current/30 px-3 py-1">MongoDB</span>
+                                    <span class="text-[9px] uppercase border border-current/30 px-3 py-1">Streamlit</span>
+                                </div>
+                                <a href="https://github.com/Suriyablue" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-xs border-b border-current pb-1 mt-6 hover:opacity-60 transition-opacity" onclick="event.stopPropagation();">
+                                    <i data-lucide="github" class="w-4 h-4"></i> View on GitHub
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card border border-current/10 transition-all duration-500 cursor-pointer overflow-hidden hover:border-current/50" onclick="toggleProject(this)">
+                    <div class="p-8 flex items-center justify-between">
+                        <div class="flex items-center gap-6">
+                            <i data-lucide="message-square-text" class="opacity-40 w-6 h-6"></i>
+                            <div>
+                                <h3 class="text-2xl font-bold italic">Sentiment Analyzer</h3>
+                                <p class="text-[10px] uppercase tracking-widest opacity-40 mt-1">Machine Learning • NLP • Classification</p>
+                            </div>
+                        </div>
+                        <i data-lucide="chevron-right" class="chevron transition-transform duration-300"></i>
+                    </div>
+                    <div class="project-content px-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-current/10 pt-8">
+                            <div>
+                                <p class="text-lg italic opacity-80 mb-6">Created a machine learning model to analyze and classify text sentiment in real-time.</p>
+                                <ul class="space-y-2 text-sm opacity-60">
+                                    <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 opacity-60"></i> Multi-class classification (Positive/Negative/Neutral)</li>
+                                    <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 opacity-60"></i> NLP-based text preprocessing</li>
+                                    <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 opacity-60"></i> Interactive prediction interface</li>
+                                </ul>
+                            </div>
+                            <div class="flex flex-col justify-between items-end">
+                                <div class="flex flex-wrap gap-2 justify-end">
+                                    <span class="text-[9px] uppercase border border-current/30 px-3 py-1">Scikit-Learn</span>
+                                    <span class="text-[9px] uppercase border border-current/30 px-3 py-1">NLTK</span>
+                                    <span class="text-[9px] uppercase border border-current/30 px-3 py-1">Python</span>
+                                </div>
+                                <a href="https://github.com/Suriyablue" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-xs border-b border-current pb-1 mt-6 hover:opacity-60 transition-opacity" onclick="event.stopPropagation();">
+                                    <i data-lucide="github" class="w-4 h-4"></i> View on GitHub
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="https://github.com/Suriyablue?tab=repositories" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-3 border border-current/30 hover:border-current transition-all">
+                    <i data-lucide="github" class="w-4 h-4"></i>
+                    View All Projects on GitHub
+                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE SECTION -->
+        <section id="experience" class="mb-48">
+            <div class="flex items-center gap-6 mb-16">
+                <span class="text-xs opacity-30 tracking-widest">[04]</span>
+                <h2 class="text-3xl md:text-5xl font-bold uppercase tracking-widest italic">Experience</h2>
+                <div class="h-[1px] flex-1 bg-current opacity-10"></div>
+            </div>
+            
+            <!-- Work Experience -->
+            <div class="relative pl-12 border-l border-current/20 mb-20">
+                <div class="absolute -left-[6px] top-2 w-[12px] h-[12px] bg-[#8b7e66] rounded-full glow-accent"></div>
+                <div class="flex flex-col md:flex-row justify-between mb-4 gap-2">
+                    <h3 class="text-2xl font-bold">Analyst Intern</h3>
+                    <span class="text-xs uppercase tracking-widest opacity-40 flex items-center gap-2">
+                        <i data-lucide="calendar" class="w-3 h-3"></i> July 2025 — Present
+                    </span>
+                </div>
+                <p class="text-lg italic mb-6 opacity-80">Acuity Knowledge Partners</p>
+                <ul class="space-y-3 opacity-60 text-sm max-w-2xl">
+                    <li class="flex items-start gap-2">
+                        <i data-lucide="chevron-right" class="w-4 h-4 mt-0.5 opacity-60"></i>
+                        Contributing to data analysis and research initiatives for business intelligence solutions
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i data-lucide="chevron-right" class="w-4 h-4 mt-0.5 opacity-60"></i>
+                        Applying Python for data processing and analytical tasks
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i data-lucide="chevron-right" class="w-4 h-4 mt-0.5 opacity-60"></i>
+                        Collaborating with cross-functional teams to deliver actionable insights
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Achievements & Certifications -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-20">
+                <!-- Achievements -->
+                <div>
+                    <div class="flex items-center gap-3 mb-8">
+                        <i data-lucide="trophy" class="w-5 h-5 opacity-40"></i>
+                        <h4 class="text-[10px] uppercase tracking-[0.4em] opacity-60">Achievements</h4>
+                    </div>
+                    <ul class="space-y-6">
+                        <li class="border-l-2 border-[#8b7e66] pl-4">
+                            <p class="text-lg font-bold italic">Patent Published</p>
+                            <p class="text-sm opacity-50 mt-1">NEOMAT — Application under Review</p>
+                        </li>
+                        <li class="border-l-2 border-[#8b7e66] pl-4">
+                            <p class="text-lg font-bold italic">Hackathon Runner-up</p>
+                            <p class="text-sm opacity-50 mt-1">Intelligent Innovators 2.0</p>
+                        </li>
+                        <li class="border-l-2 border-[#8b7e66] pl-4">
+                            <a href="https://leetcode.com/u/suryanarayanan8036/" target="_blank" rel="noopener noreferrer" class="text-lg font-bold italic hover:opacity-70 transition-opacity inline-flex items-center gap-2 cert-link">
+                                100+ LeetCode Solutions
+                                <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-60"></i>
+                            </a>
+                            <p class="text-sm opacity-50 mt-1">Data Structures & Algorithms</p>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Certifications with Links -->
+                <div>
+                    <div class="flex items-center gap-3 mb-8">
+                        <i data-lucide="badge-check" class="w-5 h-5 opacity-40"></i>
+                        <h4 class="text-[10px] uppercase tracking-[0.4em] opacity-60">Certifications</h4>
+                    </div>
+                    <ul class="space-y-6">
+                        <!-- AWS Certificate - UPDATE THIS LINK -->
+                        <li class="border-l-2 border-[#8b7e66] pl-4 cert-link">
+                            <a href="https://www.credly.com/badges/YOUR_BADGE_ID" target="_blank" rel="noopener noreferrer" class="group">
+                                <p class="text-lg font-bold italic flex items-center gap-2 group-hover:opacity-70 transition-opacity">
+                                    AWS Cloud Practitioner
+                                    <i data-lucide="external-link" class="w-4 h-4 opacity-40 group-hover:opacity-100"></i>
+                                </p>
+                                <p class="text-sm opacity-50 mt-1 flex items-center gap-2">
+                                    <i data-lucide="shield-check" class="w-3 h-3"></i> Amazon Web Services • Verified
+                                </p>
+                            </a>
+                        </li>
+                        
+                        <!-- Python Certificate - UPDATE THIS LINK -->
+                        <li class="border-l-2 border-[#8b7e66] pl-4 cert-link">
+                            <a href="https://www.linkedin.com/posts/YOUR_POST_ID" target="_blank" rel="noopener noreferrer" class="group">
+                                <p class="text-lg font-bold italic flex items-center gap-2 group-hover:opacity-70 transition-opacity">
+                                    Python Specialization
+                                    <i data-lucide="external-link" class="w-4 h-4 opacity-40 group-hover:opacity-100"></i>
+                                </p>
+                                <p class="text-sm opacity-50 mt-1 flex items-center gap-2">
+                                    <i data-lucide="shield-check" class="w-3 h-3"></i> Coursera • Verified
+                                </p>
+                            </a>
+                        </li>
+                        
+                        <!-- Frontend Certificate - UPDATE THIS LINK -->
+                        <li class="border-l-2 border-[#8b7e66] pl-4 cert-link">
+                            <a href="https://www.linkedin.com/posts/YOUR_POST_ID" target="_blank" rel="noopener noreferrer" class="group">
+                                <p class="text-lg font-bold italic flex items-center gap-2 group-hover:opacity-70 transition-opacity">
+                                    Front-End Development
+                                    <i data-lucide="external-link" class="w-4 h-4 opacity-40 group-hover:opacity-100"></i>
+                                </p>
+                                <p class="text-sm opacity-50 mt-1 flex items-center gap-2">
+                                    <i data-lucide="shield-check" class="w-3 h-3"></i> Great Learning • Verified
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="mb-48">
+            <div class="flex items-center gap-6 mb-16">
+                <span class="text-xs opacity-30 tracking-widest">[05]</span>
+                <h2 class="text-3xl md:text-5xl font-bold uppercase tracking-widest italic">Contact</h2>
+                <div class="h-[1px] flex-1 bg-current opacity-10"></div>
+            </div>
+            
+            <div class="text-center mb-16">
+                <h3 class="text-4xl md:text-6xl font-bold mb-6 italic">Let's Build Something Together</h3>
+                <p class="text-xl opacity-60 max-w-2xl mx-auto">Interested in AI projects, collaboration opportunities, or just want to connect? I'd love to hear from you.</p>
+            </div>
+
+            <!-- Contact Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+                <a href="mailto:suryanarayanan8036@gmail.com" class="contact-card p-6 md:p-8 rounded-sm text-center group">
+                    <div class="w-12 h-12 mx-auto mb-4 border border-current/30 rounded-full flex items-center justify-center group-hover:border-[#8b7e66] group-hover:bg-[#8b7e66]/10 transition-all">
+                        <i data-lucide="mail" class="w-5 h-5 opacity-60 group-hover:opacity-100"></i>
+                    </div>
+                    <h4 class="text-[10px] uppercase tracking-[0.3em] opacity-40 mb-2">Email</h4>
+                    <p class="text-xs md:text-sm opacity-80 break-all">suryanarayanan8036<br>@gmail.com</p>
+                </a>
+
+                <a href="https://github.com/Suriyablue" target="_blank" rel="noopener noreferrer" class="contact-card p-6 md:p-8 rounded-sm text-center group">
+                    <div class="w-12 h-12 mx-auto mb-4 border border-current/30 rounded-full flex items-center justify-center group-hover:border-[#8b7e66] group-hover:bg-[#8b7e66]/10 transition-all">
+                        <i data-lucide="github" class="w-5 h-5 opacity-60 group-hover:opacity-100"></i>
+                    </div>
+                    <h4 class="text-[10px] uppercase tracking-[0.3em] opacity-40 mb-2">GitHub</h4>
+                    <p class="text-sm opacity-80">@Suriyablue</p>
+                </a>
+
+                <a href="https://www.linkedin.com/in/suriyanarayanan-r-3b2590250/" target="_blank" rel="noopener noreferrer" class="contact-card p-6 md:p-8 rounded-sm text-center group">
+                    <div class="w-12 h-12 mx-auto mb-4 border border-current/30 rounded-full flex items-center justify-center group-hover:border-[#8b7e66] group-hover:bg-[#8b7e66]/10 transition-all">
+                        <i data-lucide="linkedin" class="w-5 h-5 opacity-60 group-hover:opacity-100"></i>
+                    </div>
+                    <h4 class="text-[10px] uppercase tracking-[0.3em] opacity-40 mb-2">LinkedIn</h4>
+                    <p class="text-sm opacity-80">Connect With Me</p>
+                </a>
+
+                <a href="https://leetcode.com/u/suryanarayanan8036/" target="_blank" rel="noopener noreferrer" class="contact-card p-6 md:p-8 rounded-sm text-center group">
+                    <div class="w-12 h-12 mx-auto mb-4 border border-current/30 rounded-full flex items-center justify-center group-hover:border-[#8b7e66] group-hover:bg-[#8b7e66]/10 transition-all">
+                        <i data-lucide="code-2" class="w-5 h-5 opacity-60 group-hover:opacity-100"></i>
+                    </div>
+                    <h4 class="text-[10px] uppercase tracking-[0.3em] opacity-40 mb-2">LeetCode</h4>
+                    <p class="text-sm opacity-80">100+ Problems</p>
+                </a>
+            </div>
+
+            <div class="text-center mt-16">
+                <a href="mailto:suryanarayanan8036@gmail.com?subject=Hello%20from%20Portfolio&body=Hi%20Suriyanarayanan,%0A%0AI%20visited%20your%20portfolio%20and%20would%20like%20to%20connect." class="inline-flex items-center gap-3 px-10 py-4 bg-[#8b7e66] text-white hover:brightness-110 transition-all text-lg">
+                    <i data-lucide="send" class="w-5 h-5"></i>
+                    Send Me a Message
+                </a>
+                <p class="text-xs opacity-40 mt-4">Click to open your email client</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="pt-20 border-t border-current/10">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8 opacity-40 text-[10px] uppercase tracking-[0.4em]">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="brain" class="w-4 h-4"></i>
+                    <span>R. Suriyanarayanan</span>
+                </div>
+                <div class="flex items-center gap-6">
+                    <a href="https://github.com/Suriyablue" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-opacity">
+                        <i data-lucide="github" class="w-4 h-4"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/suriyanarayanan-r-3b2590250/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-opacity">
+                        <i data-lucide="linkedin" class="w-4 h-4"></i>
+                    </a>
+                    <a href="https://leetcode.com/u/suryanarayanan8036/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-opacity">
+                        <i data-lucide="code-2" class="w-4 h-4"></i>
+                    </a>
+                    <a href="mailto:suryanarayanan8036@gmail.com" class="hover:opacity-100 transition-opacity">
+                        <i data-lucide="mail" class="w-4 h-4"></i>
+                    </a>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i data-lucide="map-pin" class="w-3 h-3"></i>
+                    <span>Thanjavur, India • 2025</span>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Resume Modal -->
+    <div id="resume-modal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeResumeModal()"></div>
+        
+        <div class="absolute inset-4 md:inset-8 lg:inset-16 bg-[var(--card)] border border-[var(--border)] rounded-sm flex flex-col">
+            <div class="flex items-center justify-between p-4 border-b border-current/10">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="file-text" class="w-5 h-5 opacity-60"></i>
+                    <span class="text-sm uppercase tracking-widest opacity-60">Resume - R. Suriyanarayanan</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="assets/docs/resume.pdf" download="Suriyanarayanan_Resume.pdf" class="flex items-center gap-2 text-xs opacity-60 hover:opacity-100 transition-opacity">
+                        <i data-lucide="download" class="w-4 h-4"></i>
+                        <span class="hidden sm:inline">Download</span>
+                    </a>
+                    <a href="assets/docs/resume.pdf" target="_blank" class="flex items-center gap-2 text-xs opacity-60 hover:opacity-100 transition-opacity">
+                        <i data-lucide="external-link" class="w-4 h-4"></i>
+                        <span class="hidden sm:inline">Open in New Tab</span>
+                    </a>
+                    <button onclick="closeResumeModal()" class="opacity-60 hover:opacity-100 transition-opacity p-1">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="flex-1 p-4 overflow-hidden">
+                <iframe 
+                    id="resume-iframe"
+                    src="" 
+                    class="w-full h-full rounded-sm bg-white"
+                    title="Resume - R. Suriyanarayanan"
+                ></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function createNeuralBg() {
+            const container = document.getElementById('neural-bg');
+            if (!container) return;
+            
+            for (let i = 0; i < 15; i++) {
+                const node = document.createElement('div');
+                node.className = 'neural-node';
+                node.style.left = Math.random() * 100 + '%';
+                node.style.top = Math.random() * 100 + '%';
+                node.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(node);
+            }
+
+            for (let i = 0; i < 8; i++) {
+                const line = document.createElement('div');
+                line.className = 'neural-line';
+                line.style.left = Math.random() * 80 + '%';
+                line.style.top = Math.random() * 100 + '%';
+                line.style.width = Math.random() * 200 + 100 + 'px';
+                line.style.transform = `rotate(${Math.random() * 360}deg)`;
+                line.style.animationDelay = Math.random() * 4 + 's';
+                container.appendChild(line);
+            }
+        }
+        createNeuralBg();
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+            const icon = document.querySelector('#theme-btn i');
+            if (document.body.classList.contains('dark-theme')) {
+                icon.setAttribute('data-lucide', 'sun');
+            } else {
+                icon.setAttribute('data-lucide', 'moon');
+            }
+            lucide.createIcons();
+        }
+
+        function toggleProject(element) {
+            document.querySelectorAll('.project-card').forEach(card => {
+                if (card !== element) card.classList.remove('active');
+            });
+            element.classList.toggle('active');
+        }
+
+        // Resume Modal Functions
+        function openResumeModal() {
+            const modal = document.getElementById('resume-modal');
+            const iframe = document.getElementById('resume-iframe');
+            iframe.src = 'assets/docs/resume.pdf';
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            lucide.createIcons();
+        }
+
+        function closeResumeModal() {
+            const modal = document.getElementById('resume-modal');
+            const iframe = document.getElementById('resume-iframe');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            iframe.src = '';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeResumeModal();
+            }
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollPos = window.scrollY + 200;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    document.querySelectorAll('nav a').forEach(link => {
+                        link.classList.remove('opacity-100');
+                        link.classList.add('opacity-40');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.remove('opacity-40');
+                            link.classList.add('opacity-100');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
